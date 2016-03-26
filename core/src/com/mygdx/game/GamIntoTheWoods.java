@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -21,6 +24,8 @@ public class GamIntoTheWoods extends Game {
 	TextureAtlas taHero;
 	TextureRegion trCurrentFrame, trLeft[], trRight[],trUp[],trDown[];
 	Animation aniLeft, aniRight,aniUp,aniDown;
+	Music Music;
+	static Sound Steps;
 	float fStateTime;
 	SpriteBatch spriteBatch;
 	Texture Background;
@@ -32,6 +37,10 @@ public class GamIntoTheWoods extends Game {
 		Background= new Texture(Gdx.files.internal("lostwoods2.jpg"));
 		taHero = new TextureAtlas("Heroinepacked.pack");
 		trCurrentFrame = new TextureRegion();
+		Steps= Gdx.audio.newSound(Gdx.files.internal("Steps.mp3"));
+		Music= Gdx.audio.newMusic(Gdx.files.internal("IntoTheWoods(Prologue).mp3"));
+		Music.isLooping();
+		Music.play();
 
 		trLeft = new TextureRegion[3];
 		trRight = new TextureRegion[3];
@@ -43,10 +52,10 @@ public class GamIntoTheWoods extends Game {
 			trUp[i] = taHero.findRegion("Up" + (i + 1));
 			trDown[i] = taHero.findRegion("Down" + (i + 1));
 		}
-		aniRight= new Animation(1f/4,trRight);
-		aniLeft= new Animation(1f/4,trLeft);
-		aniUp= new Animation(1f/4,trUp);
-		aniDown= new Animation(1f/4,trDown);
+		aniRight= new Animation(1f/8,trRight);
+		aniLeft= new Animation(1f/8,trLeft);
+		aniUp= new Animation(1f/8,trUp);
+		aniDown= new Animation(1f/8,trDown);
 		
 		spriteBatch = new SpriteBatch();
 	}
@@ -59,19 +68,24 @@ public class GamIntoTheWoods extends Game {
 		if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
 			HeroX -= Gdx.graphics.getDeltaTime() * HeroSpeed;
 			trCurrentFrame = aniLeft.getKeyFrame(0+fStateTime,true);
+			Steps.play(0.5f);
+
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
 			HeroX += Gdx.graphics.getDeltaTime() * HeroSpeed;
 			trCurrentFrame = aniRight.getKeyFrame(0+fStateTime,true);
+			Steps.play(0.5f);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) {
 			HeroY += Gdx.graphics.getDeltaTime() * HeroSpeed;
 			trCurrentFrame = aniUp.getKeyFrame(0+fStateTime,true);
+			Steps.play(0.5f);
 
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) {
 			HeroY -= Gdx.graphics.getDeltaTime() * HeroSpeed;
 			trCurrentFrame = aniDown.getKeyFrame(0+fStateTime,true);
+			Steps.play(0.5f);
 		}
 		spriteBatch.begin();
 		spriteBatch.draw(Background,0,0);
