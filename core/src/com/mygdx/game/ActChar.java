@@ -22,6 +22,7 @@ public class ActChar extends Actor {
     com.badlogic.gdx.audio.Music Music;
     static Sound Steps;
     float fStateTime;
+    int nDir;
     SpriteBatch spriteBatch;
     Texture Background;
     float HeroX,HeroY,HeroSpeed=50f;
@@ -53,8 +54,9 @@ public class ActChar extends Actor {
         spriteBatch = new SpriteBatch();
 
     }
-    //once the d-pad is completed it will send nDir to these methods and the sprite will react accordingly
-    public void setDir(int nDir){
+    public void setDir(int _nDir){
+        nDir = _nDir;
+        System.out.println(nDir);
 
     }
     public void Act(int nDir){
@@ -81,6 +83,9 @@ public class ActChar extends Actor {
             HeroY -= Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = aniDown.getKeyFrame(0+fStateTime,true);
             Steps.play(0.5f);
+        }
+        else{
+            trCurrentFrame = aniDown.getKeyFrame(0);
         }
     }
     public void Draw(){

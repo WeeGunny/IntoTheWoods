@@ -12,12 +12,18 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
  */
 public class StgIntoTheWoods extends Stage{
     ActChar actChar;
+    DPad dPad;
     public static final int StageWidth=1000;
     public static final int StageHeight=1000;
     public StgIntoTheWoods(){
         super(new ScalingViewport(Scaling.stretch, StageWidth,StageHeight, new OrthographicCamera(StageWidth, StageHeight)));
         actChar= new ActChar();
+        dPad= new DPad(actChar);
         this.addActor(actChar);
+        this.addActor(dPad.imgOutline);
+        for (int i = 0; i < 4; i++) {
+            this.addActor(dPad.ibDir[i]);
+        }
         Gdx.input.setInputProcessor(this);
     }
 

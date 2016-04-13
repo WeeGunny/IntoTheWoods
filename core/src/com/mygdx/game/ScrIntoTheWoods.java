@@ -10,12 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class ScrIntoTheWoods implements Screen{
     StgIntoTheWoods stgIntoTheWoods;
-    public ScrIntoTheWoods(GamIntoTheWoods gamIntoTheWoods){
-        stgIntoTheWoods= new StgIntoTheWoods();
+    GamIntoTheWoods gamIntoTheWoods;
+    public ScrIntoTheWoods(GamIntoTheWoods gamIntoTheWoods) {
+        this.gamIntoTheWoods = gamIntoTheWoods;
     }
 
     @Override
     public void show() {
+        stgIntoTheWoods= new StgIntoTheWoods();
+        Gdx.input.setInputProcessor(stgIntoTheWoods);
 
     }
 
