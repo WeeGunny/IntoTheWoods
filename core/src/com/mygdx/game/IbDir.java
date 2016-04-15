@@ -17,13 +17,12 @@ public class IbDir extends ImageButton {
         this.addListener(new ClickListener() {
             //@Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                actChar.Act(nDir);
+                actChar.setDir(nDir);
                 return true;
             }
 
             //@Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //actKnight.sAction = "";
                 actChar.setDir(4);
             }
         });

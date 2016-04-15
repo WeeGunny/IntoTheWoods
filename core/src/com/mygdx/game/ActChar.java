@@ -59,7 +59,7 @@ public class ActChar extends Actor {
         System.out.println(nDir);
 
     }
-    public void Act(int nDir){
+    public void Act(){
         trCurrentFrame= aniDown.getKeyFrame(0);
         fStateTime += Gdx.graphics.getDeltaTime();
         if(nDir==2) {
