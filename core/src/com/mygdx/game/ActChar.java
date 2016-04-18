@@ -52,7 +52,6 @@ public class ActChar extends Actor {
 //		arAnimations 0=down 1=right 2=left 3=up
         arAnimations= new Animation[]{aniDown,aniRight,aniLeft,aniUp};
         spriteBatch = new SpriteBatch();
-
     }
     public void setDir(int _nDir){
         nDir = _nDir;
