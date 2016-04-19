@@ -26,8 +26,8 @@ public class ScrIntoTheWoods implements Screen{
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stgIntoTheWoods.draw();
         stgIntoTheWoods.act();
+        stgIntoTheWoods.draw();
 
 
     }

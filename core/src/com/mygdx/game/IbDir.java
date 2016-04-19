@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Scott on 2016-02-23.
  */
 public class IbDir extends ImageButton {
-    int nDir;// 0-3: up, right, down, left
+    int nDir=4;// 0-3: up, right, down, left
     ActChar actChar;
 
     public IbDir(ImageButtonStyle ibs) {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,8 +23,7 @@ public class ActChar extends Actor {
     com.badlogic.gdx.audio.Music Music;
     static Sound Steps;
     float fStateTime;
-    int nDir;
-    SpriteBatch spriteBatch;
+    int nDir=4;
     Texture Background;
     float HeroX,HeroY,HeroSpeed=50f;
     public ActChar(){
@@ -49,49 +49,50 @@ public class ActChar extends Actor {
         aniLeft= new Animation(1f/8,trLeft);
         aniUp= new Animation(1f/8,trUp);
         aniDown= new Animation(1f/8,trDown);
-//		arAnimations 0=down 1=right 2=left 3=up
-        arAnimations= new Animation[]{aniDown,aniRight,aniLeft,aniUp};
-        spriteBatch = new SpriteBatch();
+        // 0-3: up, right, down, left
+//		arAnimations 0=up 1=right 2=down 3=left
+        arAnimations= new Animation[]{aniUp,aniRight,aniDown,aniLeft};
     }
     public void setDir(int _nDir){
         nDir = _nDir;
         System.out.println(nDir);
 
     }
-    public void Act(){
+    public void act(float fDelta){
         trCurrentFrame= aniDown.getKeyFrame(0);
         fStateTime += Gdx.graphics.getDeltaTime();
-        if(nDir==2) {
+        if(nDir==3) {
+            //Left
             HeroX -= Gdx.graphics.getDeltaTime() * HeroSpeed;
-            trCurrentFrame = aniLeft.getKeyFrame(0+fStateTime,true);
+            trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             Steps.play(0.5f);
 
         }
         if(nDir==1) {
+            //right
             HeroX += Gdx.graphics.getDeltaTime() * HeroSpeed;
-            trCurrentFrame = aniRight.getKeyFrame(0+fStateTime,true);
+            trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             Steps.play(0.5f);
         }
-        if(nDir==3) {
+        if(nDir==0) {
+            //up
             HeroY += Gdx.graphics.getDeltaTime() * HeroSpeed;
-            trCurrentFrame = aniUp.getKeyFrame(0+fStateTime,true);
+            trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             Steps.play(0.5f);
 
         }
-        if(nDir==0) {
+        if(nDir==2) {
+            //down
             HeroY -= Gdx.graphics.getDeltaTime() * HeroSpeed;
-            trCurrentFrame = aniDown.getKeyFrame(0+fStateTime,true);
+            trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             Steps.play(0.5f);
         }
         else{
             trCurrentFrame = aniDown.getKeyFrame(0);
         }
     }
-    public void Draw(){
-        spriteBatch.begin();
-        spriteBatch.draw(Background,0,0);
-        spriteBatch.draw(trCurrentFrame, (int)HeroX, (int)HeroY);
-        spriteBatch.end();
+    public void draw(Batch batch, float parentAlpha){
+        batch.draw(trCurrentFrame, (int)HeroX, (int)HeroY,50,100);
     }
 
 }
