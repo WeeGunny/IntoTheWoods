@@ -30,13 +30,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 // Mrgfhci animation1 project
-// This is to test branches this should only show up in the testbranch
 
 public class GamIntoTheWoods extends Game {
 	ScrIntoTheWoods scrIntoTheWoods;
 	ScrMain scrMain;
+	ScrBattle scrBattle;
+	ScrWin scrWin;
+	ScrWeapons scrWeapons;
 	public enum GameState {
-		MENU, GAME
+		MENU, GAME, BATTLE, WIN, WEAPONS
 	}
 	public GameState currentState;
 	public void updateState(){
@@ -45,6 +47,17 @@ public class GamIntoTheWoods extends Game {
 		}else if(currentState==GameState.GAME) {
 			setScreen(scrIntoTheWoods);
 		}
+		else if(currentState==GameState.BATTLE){
+			setScreen(scrBattle);
+		}
+		else if(currentState==GameState.WEAPONS){
+			setScreen(scrWeapons);
+		}
+		else if(currentState==GameState.WIN){
+			setScreen(scrWin);
+		}
+
+
 	}
 
 	@Override
@@ -52,6 +65,9 @@ public class GamIntoTheWoods extends Game {
 		setScreen(new ScrIntoTheWoods(this));
 		scrMain = new ScrMain(this);
 		scrIntoTheWoods = new ScrIntoTheWoods(this);
+		scrBattle= new ScrBattle(this);
+		scrWin= new ScrWin(this);
+		scrWeapons= new ScrWeapons(this);
 		currentState = GameState.MENU; //Set the current state to the main menu, and update it.
 		updateState();
 

@@ -11,29 +11,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * Created by Luke on 2016-04-07.
  */
-public class ActChar extends Actor {
+public class ActChar extends Actor implements Json.Serializable {
     TextureAtlas taHero;
     TextureRegion trCurrentFrame, trLeft[], trRight[],trUp[],trDown[];
     Animation aniLeft, aniRight,aniUp,aniDown;
     Animation[] arAnimations;
-    com.badlogic.gdx.audio.Music Music;
-    static Sound Steps;
+
+//    static Sound Steps;
     float fStateTime;
     int nDir=4;
     Texture Background;
-    float HeroX,HeroY,HeroSpeed=50f;
+    float HeroX=Gdx.graphics.getWidth(),HeroY=Gdx.graphics.getHeight(),HeroSpeed=50f;
     public ActChar(){
         Background= new Texture(Gdx.files.internal("lostwoods2.jpg"));
         taHero = new TextureAtlas("Heroinepacked.pack");
         trCurrentFrame = new TextureRegion();
-        Steps= Gdx.audio.newSound(Gdx.files.internal("Steps.mp3"));
-        Music= Gdx.audio.newMusic(Gdx.files.internal("IntoTheWoods(Prologue).mp3"));
-        Music.isLooping();
-        Music.play();
+//        Steps= Gdx.audio.newSound(Gdx.files.internal("Steps.mp3"));
+//        Music= Gdx.audio.newMusic(Gdx.files.internal("IntoTheWoods(Prologue).mp3"));
+//        Music.isLooping();
+//        Music.play();
 
         trLeft = new TextureRegion[3];
         trRight = new TextureRegion[3];
@@ -65,34 +67,44 @@ public class ActChar extends Actor {
             //Left
             HeroX -= Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
-            Steps.play(0.5f);
+//            Steps.play(0.5f);
 
         }
         if(nDir==1) {
             //right
             HeroX += Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
-            Steps.play(0.5f);
+//            Steps.play(0.5f);
         }
         if(nDir==0) {
             //up
             HeroY += Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
-            Steps.play(0.5f);
+//            Steps.play(0.5f);
 
         }
         if(nDir==2) {
             //down
             HeroY -= Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
-            Steps.play(0.5f);
+//            Steps.play(0.5f);
         }
         else{
-            trCurrentFrame = aniDown.getKeyFrame(0);
+            trCurrentFrame = aniUp.getKeyFrame(0);
         }
     }
     public void draw(Batch batch, float parentAlpha){
         batch.draw(trCurrentFrame, (int)HeroX, (int)HeroY,50,100);
     }
 
+    @Override
+    public void write(Json json) {
+
+
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
+    }
 }
