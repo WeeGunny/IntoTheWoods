@@ -30,7 +30,7 @@ public class ActChar extends Actor implements Json.Serializable {
     float HeroX=Gdx.graphics.getWidth(),HeroY=Gdx.graphics.getHeight(),HeroSpeed=50f;
     public ActChar(){
         Background= new Texture(Gdx.files.internal("lostwoods2.jpg"));
-        taHero = new TextureAtlas("Heroinepacked.pack");
+        taHero = new TextureAtlas("PackedCinderellaSpriteSheet.pack");
         trCurrentFrame = new TextureRegion();
 //        Steps= Gdx.audio.newSound(Gdx.files.internal("Steps.mp3"));
 //        Music= Gdx.audio.newMusic(Gdx.files.internal("IntoTheWoods(Prologue).mp3"));
@@ -70,27 +70,27 @@ public class ActChar extends Actor implements Json.Serializable {
 //            Steps.play(0.5f);
 
         }
-        if(nDir==1) {
+        else if(nDir==1) {
             //right
             HeroX += Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
 //            Steps.play(0.5f);
         }
-        if(nDir==0) {
+        else if(nDir==0) {
             //up
             HeroY += Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
 //            Steps.play(0.5f);
 
         }
-        if(nDir==2) {
+        else if(nDir==2) {
             //down
             HeroY -= Gdx.graphics.getDeltaTime() * HeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
 //            Steps.play(0.5f);
         }
         else{
-            trCurrentFrame = aniUp.getKeyFrame(0);
+            trCurrentFrame = aniDown.getKeyFrame(0);
         }
     }
     public void draw(Batch batch, float parentAlpha){
