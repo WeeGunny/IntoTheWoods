@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
  */
 public class StgIntoTheWoods extends Stage{
     ActChar actChar;
+    ActTiledMaps actTiledMaps;
     DPad dPad;
     TbsMenu tbsMenu;
     GamIntoTheWoods gamIntoTheWoods;
@@ -28,6 +29,7 @@ public class StgIntoTheWoods extends Stage{
         dPad= new DPad(actChar);
         tbsMenu = new TbsMenu();
         this.addActor(actChar);
+        this.addActor(actTiledMaps);
         this.addActor(dPad.imgOutline);
         for (int i = 0; i < 4; i++) {
             this.addActor(dPad.ibDir[i]);
