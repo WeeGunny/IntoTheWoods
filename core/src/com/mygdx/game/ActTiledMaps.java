@@ -24,13 +24,11 @@ public class ActTiledMaps extends Actor{
     ActChar actChar;
     TiledMap tmGameMap;
     OrthogonalTiledMapRenderer orthotmrRenderer;
-    OrthographicCamera ocMainCam;
-    float fHeroX, fHeroY;
-    SpriteBatch sbBatch;
+//    OrthographicCamera ocMainCam;
+    float fHeroX, fHeroY;;
 
     ArrayList<Rectangle> arlRectObjectBounds = new ArrayList<Rectangle>();
     Rectangle rectSprite;
-    String sDirection;
     MapProperties mpBounds;
 
     RectangleMapObject rmoCollisionRect;
@@ -38,16 +36,17 @@ public class ActTiledMaps extends Actor{
     Rectangle rectObjectBounds;
 
     public ActTiledMaps(){
+        actChar= new ActChar();
         rectSprite = new Rectangle();
         mpBounds = new MapProperties();
 
         //Setting Up Orthographic Camera
-        ocMainCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        ocMainCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        ocMainCam.update();
+//        ocMainCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        ocMainCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        ocMainCam.update();
 
         //Setting Up TiledMap
-        tmGameMap = new TmxMapLoader().load("CameraPanMap.tmx");
+        tmGameMap = new TmxMapLoader().load("Mission1Map1.tmx");
         orthotmrRenderer = new OrthogonalTiledMapRenderer(tmGameMap);
 
         mpBounds = tmGameMap.getProperties();
@@ -60,7 +59,7 @@ public class ActTiledMaps extends Actor{
         nMapTileWidth = nMapWidth * nTileWidth;
         nMapTileHeight = nMapHeight * nTileHeight;
 
-        moCollisionDetection = tmGameMap.getLayers().get("Collision Layer").getObjects();
+        moCollisionDetection = tmGameMap.getLayers().get("Collision").getObjects();
         //Loop through the objects in the object layer, creating a rectangle from each object's information (height, width, etc)
         for (int i = 0; i < moCollisionDetection.getCount(); i++) {
             rmoCollisionRect = (RectangleMapObject) moCollisionDetection.get(i);
@@ -71,20 +70,19 @@ public class ActTiledMaps extends Actor{
         }
 
     }
-    public void render(String sDirection){
-        ocMainCam.position.set(fHeroX, fHeroY, 0);
-        sbBatch.setProjectionMatrix(ocMainCam.combined);
-        ocMainCam.position.x = MathUtils.clamp(ocMainCam.position.x, 0 + (Gdx.graphics.getWidth() / 2), nMapTileWidth - (Gdx.graphics.getWidth() / 2));
-        ocMainCam.position.y = MathUtils.clamp(ocMainCam.position.y, 0 + (Gdx.graphics.getHeight() / 2), nMapTileHeight - (Gdx.graphics.getHeight() / 2));
-        ocMainCam.update();
+    public void act(float fDelta){
+//        ocMainCam.position.set(fHeroX, fHeroY, 0);
+////        sbBatch.setProjectionMatrix(ocMainCam.combined);
+
+//        ocMainCam.update();
 
         fHeroX = MathUtils.clamp(fHeroX, 0 + 16, nMapTileWidth - 16);
         fHeroY = MathUtils.clamp(fHeroY, 0 + 32, nMapTileHeight -32);
 
         //Rendering Tiled Map
-        orthotmrRenderer.setView(ocMainCam);
+//        orthotmrRenderer.setView(ocMainCam);
         orthotmrRenderer.render();
-        ocMainCam.update();
+//        ocMainCam.update();
 
 
 

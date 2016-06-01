@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,14 +21,17 @@ public class StgIntoTheWoods extends Stage{
     DPad dPad;
     TbsMenu tbsMenu;
     GamIntoTheWoods gamIntoTheWoods;
-    public static final int StageWidth=1000;
-    public static final int StageHeight=1000;
+    OrthographicCamera ocMainCam;
+//    public static final int StageWidth=Gdx.graphics.getWidth();
+//    public static final int StageHeight=Gdx.graphics.getHeight();
     public StgIntoTheWoods(){
-        super(new ScalingViewport(Scaling.stretch, StageWidth,StageHeight, new OrthographicCamera(StageWidth, StageHeight)));
+        ocMainCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ocMainCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gamIntoTheWoods= new GamIntoTheWoods();
         actChar= new ActChar();
         dPad= new DPad(actChar);
         tbsMenu = new TbsMenu();
+        actTiledMaps= new ActTiledMaps();
         this.addActor(actChar);
         this.addActor(actTiledMaps);
         this.addActor(dPad.imgOutline);
@@ -35,6 +39,11 @@ public class StgIntoTheWoods extends Stage{
             this.addActor(dPad.ibDir[i]);
         }
         Gdx.input.setInputProcessor(this);
+        ocMainCam.position.set(actChar.fHeroX, actChar.fHeroY, 0);
+        ocMainCam.position.x = MathUtils.clamp(ocMainCam.position.x, 0 + (Gdx.graphics.getWidth() / 2), actTiledMaps.nMapTileWidth - (Gdx.graphics.getWidth() / 2));
+        ocMainCam.position.y = MathUtils.clamp(ocMainCam.position.y, 0 + (Gdx.graphics.getHeight() / 2), actTiledMaps.nMapTileHeight - (Gdx.graphics.getHeight() / 2));
+        actTiledMaps.orthotmrRenderer.setView(ocMainCam);
+        ocMainCam.update();
 
     }
 

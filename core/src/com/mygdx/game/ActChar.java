@@ -22,7 +22,7 @@ public class ActChar extends Actor implements Json.Serializable {
     TextureRegion trCurrentFrame, trLeft[], trRight[],trUp[],trDown[];
     Animation aniLeft, aniRight,aniUp,aniDown;
     Animation[] arAnimations;
-    String sDirection;
+    String sDirection="down";
     ActTiledMaps actTiledMaps;
 
 //    static Sound Steps;
@@ -63,7 +63,7 @@ public class ActChar extends Actor implements Json.Serializable {
 
     }
     public void act(float fDelta){
-        actTiledMaps.render("Down");
+//        actTiledMaps.act();
         trCurrentFrame= aniDown.getKeyFrame(0);
         fStateTime += Gdx.graphics.getDeltaTime();
         if(nDir==3) {
@@ -72,7 +72,7 @@ public class ActChar extends Actor implements Json.Serializable {
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             sDirection = "Left";
 //            Steps.play(0.5f);
-            actTiledMaps.render(sDirection);
+//            actTiledMaps.act();
 
         }
         else if(nDir==1) {
@@ -80,7 +80,7 @@ public class ActChar extends Actor implements Json.Serializable {
             fHeroX += Gdx.graphics.getDeltaTime() * fHeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             sDirection = "Right";
-            actTiledMaps.render(sDirection);
+//            actTiledMaps.act();
 //            Steps.play(0.5f);
         }
         else if(nDir==0) {
@@ -88,7 +88,7 @@ public class ActChar extends Actor implements Json.Serializable {
             fHeroY += Gdx.graphics.getDeltaTime() * fHeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             sDirection = "Up";
-            actTiledMaps.render(sDirection);
+//            actTiledMaps.act();
 //            Steps.play(0.5f);
 
         }
@@ -97,7 +97,7 @@ public class ActChar extends Actor implements Json.Serializable {
             fHeroY -= Gdx.graphics.getDeltaTime() * fHeroSpeed;
             trCurrentFrame = arAnimations[nDir].getKeyFrame(0+fStateTime,true);
             sDirection = "Down";
-            actTiledMaps.render(sDirection);
+//            actTiledMaps.act();
 //            Steps.play(0.5f);
         }
         else{
@@ -105,7 +105,7 @@ public class ActChar extends Actor implements Json.Serializable {
         }
     }
     public void draw(Batch batch, float parentAlpha){
-        batch.draw(trCurrentFrame, (int)fHeroX, (int)fHeroY,50,100);
+        batch.draw(trCurrentFrame, (int)fHeroX, (int)fHeroY,50,50);
     }
 
     @Override
