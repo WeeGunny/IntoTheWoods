@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class ScrIntoTheWoods implements Screen{
     StgIntoTheWoods stgIntoTheWoods;
     GamIntoTheWoods gamIntoTheWoods;
+    ActChar actChar= new ActChar();
+    ActTiledMaps actTiledMaps = new ActTiledMaps();
+
     public ScrIntoTheWoods(GamIntoTheWoods gamIntoTheWoods) {
         this.gamIntoTheWoods = gamIntoTheWoods;
     }

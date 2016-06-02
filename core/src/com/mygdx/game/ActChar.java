@@ -24,12 +24,15 @@ public class ActChar extends Actor implements Json.Serializable {
     Animation[] arAnimations;
     String sDirection="down";
     ActTiledMaps actTiledMaps;
+    //SpriteBatch sbBatch;
 
 //    static Sound Steps;
     float fStateTime;
     int nDir=4;
     Texture Background;
-    float fHeroX=Gdx.graphics.getWidth(),fHeroY=Gdx.graphics.getHeight(),fHeroSpeed=50f;
+    public float fHeroX=100;
+    public float fHeroY=100;
+    float fHeroSpeed=50f;
     public ActChar(){
         //Background= new Texture(Gdx.files.internal("lostwoods2.jpg"));
         taHero = new TextureAtlas("PackedCinderellaSpriteSheet.pack");
@@ -104,8 +107,12 @@ public class ActChar extends Actor implements Json.Serializable {
             trCurrentFrame = aniDown.getKeyFrame(0);
         }
     }
+    public float GiveX(){
+        return fHeroX;
+    }
     public void draw(Batch batch, float parentAlpha){
-        batch.draw(trCurrentFrame, (int)fHeroX, (int)fHeroY,50,50);
+        batch.draw(trCurrentFrame, (int)fHeroX, (int)fHeroY,40, 50);
+        //batch.setProjectionMatrix(actTiledMaps.ocMainCam.combined);
     }
 
     @Override

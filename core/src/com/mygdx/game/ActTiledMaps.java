@@ -24,6 +24,7 @@ public class ActTiledMaps extends Actor{
     ActChar actChar;
     TiledMap tmGameMap;
     OrthogonalTiledMapRenderer orthotmrRenderer;
+    OrthographicCamera ocMainCam;
 //    OrthographicCamera ocMainCam;
     float fHeroX, fHeroY;;
 
@@ -40,10 +41,10 @@ public class ActTiledMaps extends Actor{
         rectSprite = new Rectangle();
         mpBounds = new MapProperties();
 
-        //Setting Up Orthographic Camera
-//        ocMainCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        ocMainCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        ocMainCam.update();
+        ocMainCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ocMainCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ocMainCam.update();
+
 
         //Setting Up TiledMap
         tmGameMap = new TmxMapLoader().load("Mission1Map1.tmx");
@@ -76,12 +77,25 @@ public class ActTiledMaps extends Actor{
 
 //        ocMainCam.update();
 
-        fHeroX = MathUtils.clamp(fHeroX, 0 + 16, nMapTileWidth - 16);
-        fHeroY = MathUtils.clamp(fHeroY, 0 + 32, nMapTileHeight -32);
+        //fHeroX = MathUtils.clamp(fHeroX, 0 + 16, nMapTileWidth - 16);
+        //fHeroY = MathUtils.clamp(fHeroY, 0 + 32, nMapTileHeight -32);
 
         //Rendering Tiled Map
 //        orthotmrRenderer.setView(ocMainCam);
+        fHeroX=actChar.GiveX();
+        ocMainCam.position.set(actChar.fHeroX, actChar.fHeroY, 0);
+        //System.out.println(fHeroX);
+        System.out.println(fHeroX);
+        ocMainCam.position.x = MathUtils.clamp(ocMainCam.position.x, 0 + (Gdx.graphics.getWidth() / 2), nMapTileWidth - (Gdx.graphics.getWidth() / 2));
+        ocMainCam.position.y = MathUtils.clamp(ocMainCam.position.y, 0 + (Gdx.graphics.getHeight() / 2), nMapTileHeight - (Gdx.graphics.getHeight() / 2));
+        ocMainCam.update();
+
+        actChar.fHeroX = MathUtils.clamp(actChar.fHeroX, 0 + 16, nMapTileWidth - 16);
+        actChar.fHeroY = MathUtils.clamp(actChar.fHeroY, 0 + 32, nMapTileHeight -32);
+
+        orthotmrRenderer.setView(ocMainCam);
         orthotmrRenderer.render();
+        ocMainCam.update();
 //        ocMainCam.update();
 
 
